@@ -164,7 +164,9 @@ const anthropicModels = [
 ];
 
 export const DEFAULT_MODELS = [
-  ...openaiModels.map((name) => ({
+  ...openaiModels.filter(
+    (m) => !m.startsWith("gpt-4") || m.startsWith("gpt-4-turbo"),
+  ).map((name) => ({
     name,
     available: true,
     provider: {

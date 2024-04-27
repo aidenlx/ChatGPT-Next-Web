@@ -11,6 +11,11 @@ const ALLOWD_PATH = new Set(Object.values(OpenaiPath));
 function getModels(remoteModelRes: OpenAIListModelResponse) {
   const config = getServerSideConfig();
 
+  // disable non-turbo gpt-4
+  remoteModelRes.data = remoteModelRes.data.filter(
+    (m) => !m.id.startsWith("gpt-4") || m.id.startsWith("gpt-4-turbo"),
+  );
+
   if (config.disableGPT4) {
     remoteModelRes.data = remoteModelRes.data.filter(
       (m) => !m.id.startsWith("gpt-4"),
