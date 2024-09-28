@@ -367,7 +367,9 @@ const iflytekModels = [
 
 let seq = 1000; // 内置的模型序号生成器从1000开始
 export const DEFAULT_MODELS = [
-  ...openaiModels.map((name) => ({
+  ...openaiModels.filter(
+    (m) => m !== "gpt-4" && !(m.startsWith("gpt-4-") && !m.startsWith("gpt-4-turbo")),
+  ).map((name) => ({
     name,
     available: true,
     sorted: seq++, // Global sequence sort(index)
